@@ -1,0 +1,484 @@
+/* General CSS */
+/* Mobile First Approach */
+
+/* GENERAL STUFF */
+h4 {
+	font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 900;
+}
+
+.trojan {
+	color: #990000;
+	font-weight: 700;
+}
+
+.content {
+	min-height: 927px;
+	max-height: 100%;
+	position: relative;
+
+}
+
+.bottom-gap {
+	padding-bottom: 80px;
+}
+
+.top-gap {
+	margin-top: 25%;
+}
+
+.lock {
+	overflow: hidden;
+}
+
+/* ----------UNIVERSAL TO ALL PAGES---------- */
+/* ----------Top Navigation---------- */
+.top-nav {
+	position: fixed;
+	top: 0;
+	background-color: #990000;
+	width: 100%;
+	z-index: 1000;
+}
+
+#logo {
+	font-family: adobe-caslon-pro, serif;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 20px;
+	
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	
+	padding: 0 15px 0 0;
+	height: 70px;
+	line-height: 75px;
+}
+
+#nav-links {
+	/* Hide it using jQuery */
+	background-color: black;
+	display: none;
+}
+
+#nav-links a {
+	color: #ffcc00;
+	transition: 0.3s
+}
+
+#nav-links a:hover {
+	color: #fff;
+	transition: 0.3s;
+}
+
+.top-nav a {
+	color: white;
+	padding: 15px 20px;
+	text-decoration: none;
+	font-size: 18px;
+	display: block;
+}
+
+.top-nav a.menu-icon {
+	font-size: 25px;
+	display: block;
+	left: 0;
+	top: 0;
+}
+
+.top-nav a.menu-icon i {
+	color: #ffcc00;
+	transition: 0.3s;
+
+	cursor: pointer;
+}
+
+.top-nav a.menu-icon i:hover {
+	color: #fff;
+	transition: 0.3s;
+}
+
+/* ----------Footer---------- */
+footer {
+	width: 100%;
+	text-align: center;
+	background-color: #990000;
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	position: fixed;
+	bottom: 0;
+}
+
+footer p {
+	margin: 0;
+	padding:0;
+}
+
+/* ----------SEARCH PAGE---------- */
+/* ----------Main Logo---------- */
+#main-logo {
+	margin-top: 70px;
+}
+
+#main-logo img {
+	width: 40%;
+	text-align: center;
+	display: block;
+	margin:auto;
+	padding: 50px;
+}
+
+/* ----------Search Bar---------- */
+.search input[type="text"], input[type="submit"] {
+	display: block;
+	height: 50px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+.search input[type="text"] {
+	width: 100%;
+	font-size: 15px;
+}
+
+.search input[type="submit"] {
+	width: 100%;
+	font-size: 15px;
+
+	background-color: #ffcc00;
+	color: #990000;
+	border: none;
+}
+
+.search input[type="submit"]:hover {
+	background-color: #990000;
+	color: #ffcc00;
+}
+
+#filter h6 {
+	text-align: right;
+	padding-top: 5px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+
+	cursor: pointer;
+	color: #666;
+	transition: 0.3s;
+}
+
+#filter h6:hover {
+	color: black;
+	transition: 0.3s;
+}
+
+#detail {
+	background-color: #eee;
+	padding: 10px;
+	display: none;
+	border-radius: 5px;
+}
+
+#detail select {
+	width: 100%;
+}
+
+input[type="date"] {
+	width: 97.5%;
+}
+
+/* ----------Keywords---------- */
+#keywords {
+	text-align: center;
+}
+
+.tag {
+	background-color: #eee;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-radius: 20px;
+
+	transition: 0.3s;
+}
+
+.tag:hover {
+	background-color: #990000;
+	color: #ffcc00;
+
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+/* ----------Recent Reports---------- */
+#recent {
+	margin-top: 40px;
+}
+
+.card {
+	background-color: #eee;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.card-map {
+	width: 100%;
+	height: 120px;
+	margin-bottom: 8px;
+	background-color: #ddd;
+	border-radius: 8px 8px 0 0;
+
+	text-align: center;
+	line-height: 120px;
+}
+
+.card-title {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 6px;
+}
+
+.card-caption {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 30px;
+	margin-bottom: 0;
+}
+
+/* ----------Monthly Summary---------- */
+#monthly {
+	display: none;
+	margin-top: 30px;
+}
+
+#monthly .row {
+	height: 400px;
+	background-color: #eee;
+	border-radius: 8px;
+	margin-bottom: 80px;
+}
+
+#monthly p {
+	font-weight: 400;
+}
+
+/* ----------RESOURCE PAGE---------- */
+
+.resource {
+	padding-top: 15px;
+}
+
+/* ----------SEARCH RESULTS PAGE---------- */
+#display label, #display select{
+	display: block;
+}
+
+#display select {
+	margin-right: 10px;
+}
+
+#stack-map {
+	text-align: left;
+	font-size: 20px;
+	color: #ccc;
+
+	cursor: pointer;
+}
+
+#stack, #map {
+	margin-right: 5px;
+}
+
+.result {
+	margin-bottom: 30px;
+}
+
+.result-card, #map-section {
+	background-color: #eee;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 25px;
+
+	cursor: pointer;
+}
+
+.result-card .row div:first-of-type + div {
+	text-align: right;
+}
+
+.result-card p, .result-card h6 {
+	margin-bottom: 10px;
+}
+
+.result-card i {
+	padding-right: 8px;
+}
+
+.details, .hide {
+	display: none;
+}
+
+.selected {
+	color: black;
+}
+
+#map-section {
+	background-color: #eee;
+	height: 500px;
+}
+
+/* ----------ADMIN LOGIN PAGE---------- */
+#login {
+	margin: auto;
+	position: relative;
+}
+
+#login-child {
+	padding: 40px;
+	box-shadow: 2px 2px 10px 1px #00000022;
+}
+
+#login-child img {
+	display: block;
+	margin: auto;
+	width: 150px;
+	margin-bottom: 10px;
+}
+
+#identification input {
+	width: 100%;
+}
+
+#identification input[type="submit"] {
+	margin-top: 25px;
+	background-color: #990000;
+	font-size: 15px;
+	color: white;
+	border: none;
+
+	transition: 0.3s;
+}
+
+#identification input[type="submit"]:hover {
+	color: #ffcc00;
+	
+	transition: 0.3s;
+}
+
+/* ----------ADMIN HOME PAGE---------- */
+.panel {
+	background-color: #eee;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+}
+
+.panel button {
+	background-color: #990000;
+	border: none;
+	color: white;
+
+	transition: 0.3s;
+}
+
+.panel button:hover {
+	background-color: #ffcc00;
+	color: #990000;
+	
+	transition: 0.3s;
+}
+
+/* ----------ADMIN ADD PAGE---------- */
+#add input, #add textarea, #add select {
+	width: 100%;
+	height: 35px;
+}
+
+/* ----------RESPONSIVE---------- */
+/* ----------TABLET---------- */
+@media (min-width: 768px) {
+	.top-gap {
+		margin-top: 15%;
+	}
+	/* ----------SEARCH PAGE---------- */
+	/* ----------Search Bar---------- */
+	#main-logo img {
+		width: 25%;
+	}
+
+	.search input[type="text"], input[type="submit"] {
+		display: inline-block;
+		height: 50px;
+		margin: auto;
+		margin-bottom: 0;
+	}
+
+	.search input[type="text"] {
+		width: 80%;
+		border-radius: 4px 0px 0px 4px;
+		font-size: 15px;
+	}
+
+	.search input[type="submit"] {
+		width: 20%;
+		border-radius: 0px 5px 5px 0px;
+		font-size: 15px;
+	}
+
+	/* ----------Recent Reports---------- */
+	#report {
+		padding-bottom: 0;
+	}
+
+	/* ----------Monthly Summary---------- */
+	#monthly {
+		display: block;
+	}
+
+	/* ----------SEARCH RESULTS PAGE---------- */
+	#display label, #display select {
+		display: inline-block;
+	}
+
+	#stack-map {
+		text-align: right;
+		padding-right: 10px;
+	}
+
+	#stack, #map {
+		margin-right: 0;
+		margin-left: 5px;
+	}
+
+	.results {
+		margin-bottom: 0;
+	}
+
+/* ----------DESKTOP---------- */
+@media (min-width: 992px) {
+	/* ----------UNIVERSAL TO ALL PAGES---------- */
+	/* ----------Top Navigation---------- */
+	.top-nav a.menu-icon {
+		display: none;
+	}
+
+	#main-logo img {
+		width: 18%;
+	}
+
+
+	#nav-links, #nav-links a {
+		display: inline-block;
+		background-color: #990000;
+	}
+
+	.top-nav a {
+		padding-top: 21px;
+		padding-bottom: 21px;
+	}
+}
