@@ -35,10 +35,10 @@
 			<a class="menu-icon"><i class="fas fa-bars"></i></a>
 			<!-- Navigation Links -->
 			<div id="nav-links">
-				<a href="search.html">Search</a>
-				<a href="resource.html">Resources</a>
-				<a href="about.html">About</a>
-				<a href="admin.html"><i class="fas fa-lock"></i></a>
+				<a href="search.php">Search</a>
+				<a href="resource.php">Resources</a>
+				<a href="about.php">About</a>
+				<a href="admin.php"><i class="fas fa-lock"></i></a>
 			</div>
 			<a href="#" id="logo">USC Emergency Logs</a>
 		</div>
@@ -47,7 +47,7 @@
 		</div>
 		<!-- Search Section -->
 		<div class="container search">
-			<form action="result.html" method="GET">
+			<form action="result.php" method="GET">
 				<div class="row">
 					<div class="twelve columns">
 						<input type="text" name="log-search" placeholder="Type something"/><input type="submit" value="Search"/>

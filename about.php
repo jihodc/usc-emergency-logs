@@ -26,7 +26,7 @@
   	<!-- Favicon -->
   	 <link rel="icon" type="image/png" href="images/app-favicon.png">
 
-</head>	
+</head>
 <body>
 	<div class="content">
 		<!-- Top Naviagation Bar -->
@@ -35,36 +35,33 @@
 			<a class="menu-icon"><i class="fas fa-bars"></i></a>
 			<!-- Navigation Links -->
 			<div id="nav-links">
-				<a href="search.html">Search</a>
-				<a href="resource.html">Resources</a>
-				<a href="about.html">About</a>
-				<a href="admin.html"><i class="fas fa-lock"></i></a>
+				<a href="search.php">Search</a>
+				<a href="resource.php">Resources</a>
+				<a href="about.php">About</a>
+				<a href="admin.php"><i class="fas fa-lock"></i></a>
 			</div>
 			<a href="#" id="logo">USC Emergency Logs</a>
 		</div>
-		<!-- Button Sections -->
+		<!-- Body -->
 		<div class="container">
-			<div class="row">
-				<div class="twelve columns top-gap panel">
-					<h5>Add Data</h5>
-					<p>Add new data to the current database.</p>
-					<a href="add.html"><button>Add Data</button></a>
-				</div>
-				<div class="twelve columns panel">
-					<h5>Update Data</h5>
-					<p>Update or delete current database.</p>
-					<a href="#"><button>Update/Delete Data</button></a>
-				</div>
-			</div>
-		</div>
-		
+    		<div class="row">
+      		<div class="eight columns top-gap">
+        	<h3>What is USC Emergency Logs?</h3>
+        	<p>USC Emergency Logs was made to improve the display and access experience of the <a href="https://dps.usc.edu/alerts/log/" target="_blank">Daily Crime & Fire Logs</a> that contain verified information of emergency incidents happening around the USC campus vicinity.</p>
+      	</div>
+    </div>
+  </div>
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>
 		</footer> -->
 	</div>
 
+	
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- External Javascript -->
 	<script type="text/javascript" src="js/search.js"></script>
+
+</body>
+</html>

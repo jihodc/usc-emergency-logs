@@ -13,7 +13,7 @@
 	<!-- Font -->
 	<link rel="stylesheet" href="https://use.typekit.net/avw1jas.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">>
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
 
 	<!-- Stylesheet -->
 	<link rel="stylesheet" href="css/normalize.css">
@@ -26,49 +26,47 @@
   	<!-- Favicon -->
   	 <link rel="icon" type="image/png" href="images/app-favicon.png">
 
-</head>
-<body scroll="no" class="lock">
-	<div class="content bottom-gap">
+</head>	
+<body>
+	<div class="content">
 		<!-- Top Naviagation Bar -->
 		<div class="top-nav">
 			<!-- Hamburger Menu Icon -->
 			<a class="menu-icon"><i class="fas fa-bars"></i></a>
 			<!-- Navigation Links -->
 			<div id="nav-links">
-				<a href="search.html">Search</a>
-				<a href="resource.html">Resources</a>
-				<a href="about.html">About</a>
-				<a href="admin.html"><i class="fas fa-lock"></i></a>
+				<a href="search.php">Search</a>
+				<a href="resource.php">Resources</a>
+				<a href="about.php">About</a>
+				<a href="admin.php"><i class="fas fa-lock"></i></a>
 			</div>
 			<a href="#" id="logo">USC Emergency Logs</a>
 		</div>
-		<div class="container" id="login">
+		<!-- Button Sections -->
+		<div class="container">
 			<div class="row">
-				<div class="twelve columns top-gap" id="login-child">
-					<img src="images/usc-logo.png" alt="usc logo">
-					<div class="twelve columns" id="identification">
-						<form action="admin-home.html" method="">
-							<label for="username">Username</label>
-							<input type="text" name="username">
-							<label for="password">Password</label>
-							<input type="password" name="password">
-							<input type="submit" name="login" value="Login">
-						</form>
-					</div>
+				<div class="twelve columns top-gap panel">
+					<h5>Add Data</h5>
+					<p>Add new data to the current database.</p>
+					<a href="add.php"><button>Add Data</button></a>
+				</div>
+				<div class="twelve columns panel">
+					<h5>Update Data</h5>
+					<p>Update or delete current database.</p>
+					<a href="#"><button>Update/Delete Data</button></a>
 				</div>
 			</div>
 		</div>
+		
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>
 		</footer> -->
 	</div>
 
-	
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- External Javascript -->
 	<script type="text/javascript" src="js/search.js"></script>
-
 </body>
 </html>

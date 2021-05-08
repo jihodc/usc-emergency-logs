@@ -13,7 +13,7 @@
 	<!-- Font -->
 	<link rel="stylesheet" href="https://use.typekit.net/avw1jas.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">>
 
 	<!-- Stylesheet -->
 	<link rel="stylesheet" href="css/normalize.css">
@@ -27,30 +27,37 @@
   	 <link rel="icon" type="image/png" href="images/app-favicon.png">
 
 </head>
-<body>
-	<div class="content">
+<body scroll="no" class="lock">
+	<div class="content bottom-gap">
 		<!-- Top Naviagation Bar -->
 		<div class="top-nav">
 			<!-- Hamburger Menu Icon -->
 			<a class="menu-icon"><i class="fas fa-bars"></i></a>
 			<!-- Navigation Links -->
 			<div id="nav-links">
-				<a href="search.html">Search</a>
-				<a href="resource.html">Resources</a>
-				<a href="about.html">About</a>
-				<a href="admin.html"><i class="fas fa-lock"></i></a>
+				<a href="search.php">Search</a>
+				<a href="resource.php">Resources</a>
+				<a href="about.php">About</a>
+				<a href="admin.php"><i class="fas fa-lock"></i></a>
 			</div>
 			<a href="#" id="logo">USC Emergency Logs</a>
 		</div>
-		<!-- Body -->
-		<div class="container">
-    		<div class="row">
-      		<div class="eight columns top-gap">
-        	<h3>What is USC Emergency Logs?</h3>
-        	<p>USC Emergency Logs was made to improve the display and access experience of the <a href="https://dps.usc.edu/alerts/log/" target="_blank">Daily Crime & Fire Logs</a> that contain verified information of emergency incidents happening around the USC campus vicinity.</p>
-      	</div>
-    </div>
-  </div>
+		<div class="container" id="login">
+			<div class="row">
+				<div class="twelve columns top-gap" id="login-child">
+					<img src="images/usc-logo.png" alt="usc logo">
+					<div class="twelve columns" id="identification">
+						<form action="admin-home.php" method="">
+							<label for="username">Username</label>
+							<input type="text" name="username">
+							<label for="password">Password</label>
+							<input type="password" name="password">
+							<input type="submit" name="login" value="Login">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>
