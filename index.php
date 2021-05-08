@@ -1,2 +1,2 @@
 <?php
-    header("Location: search.html");
+    header("Location: search.php");
