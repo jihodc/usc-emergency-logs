@@ -375,6 +375,10 @@ input[type="date"] {
 	transition: 0.3s;
 }
 
+.bad {
+	color: red;
+}
+
 /* ----------ADMIN HOME PAGE---------- */
 .panel {
 	background-color: #eee;

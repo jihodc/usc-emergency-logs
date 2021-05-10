@@ -10,15 +10,38 @@
 		if(isset($_POST['username']) && isset($_POST['password'])) {
 			// Check if username and password exists
 			if(empty($_POST['username']) || empty($_POST['password'])) {
-				$error = "Please enter username and password"
+				$error = "Please enter username and password";
 			} else {
 				// Knowning that username and password exists, compare it to the ones that exist in DB
 				if($conn->connect_errno) {
 					echo $conn->connect_error;
 					exit();
 				}
-				echo "WORKING FINE SO FAR!"
+				// Hashed password
 				$passwordInput = hash("sha256", $_POST['password']);
+				$usernameInput = $_POST['username'];
+
+				// Prepared statement
+				$statement = $conn->prepare("SELECT * FROM accounts WHERE username= ? AND password= ? ");
+				$statement->bind_param("ss", $usernameInput, $passwordInput);
+				$execute = $statement->exectute();
+				if(!$execute) {
+					echo $conn->error;
+					exit();
+				}
+
+				// If you get at lease one result, it means the account exists in database
+				if($execute->num_rows > 0) {
+					$_SESSION["username"] = $_POST["username"];
+					$_SESSION["logged_in"] = true;
+
+					// Redirect logged in user to the homepage
+					header("Location: admin-home.php");
+				} else {
+					$error = "Invalid username or password";
+				}
+
+
 			}
 		}
 
@@ -68,6 +91,14 @@
 							<input type="text" name="username">
 							<label for="password">Password</label>
 							<input type="password" name="password">
+							<div class="bad">
+								<!-- Show server-side errors here -->
+								<?php 
+									if(isset($error) && !empty($error)) {
+										echo $error;
+									}
+								?>
+							</div>
 							<input type="submit" name="login" value="Login">
 						</form>
 					</div>
