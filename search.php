@@ -1,9 +1,10 @@
 <?php 
 	require 'config/config.php';
+	$currentPage = "search";
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 <head>
 	<!-- Basic Information -->
 	<meta charset="utf-8">

@@ -1,3 +1,30 @@
+<?php 
+	// Session already imported in config.php
+	require "config/config.php";
+	$currentPage = "admin";
+
+	// Server-side validation
+	// Check if user is already logged in
+	if (!isset($_SESSION["logged_in"]) || !$_SESSION["logged_in"]) {
+		// Check if username and password has been submitted via POST
+		if(isset($_POST['username']) && isset($_POST['password'])) {
+			// Check if username and password exists
+			if(empty($_POST['username']) || empty($_POST['password'])) {
+				$error = "Please enter username and password"
+			} else {
+				// Knowning that username and password exists, compare it to the ones that exist in DB
+				if($conn->connect_errno) {
+					echo $conn->connect_error;
+					exit();
+				}
+				echo "WORKING FINE SO FAR!"
+				$passwordInput = hash("sha256", $_POST['password']);
+			}
+		}
+
+	} 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,25 +56,14 @@
 </head>
 <body scroll="no" class="lock">
 	<div class="content bottom-gap">
-		<!-- Top Naviagation Bar -->
-		<div class="top-nav">
-			<!-- Hamburger Menu Icon -->
-			<a class="menu-icon"><i class="fas fa-bars"></i></a>
-			<!-- Navigation Links -->
-			<div id="nav-links">
-				<a href="search.php">Search</a>
-				<a href="resource.php">Resources</a>
-				<a href="about.php">About</a>
-				<a href="admin.php"><i class="fas fa-lock"></i></a>
-			</div>
-			<a href="#" id="logo">USC Emergency Logs</a>
-		</div>
+		<!-- Import Navigation Bar -->
+		<?php include 'config/navbar.php'; ?>
 		<div class="container" id="login">
 			<div class="row">
 				<div class="twelve columns top-gap" id="login-child">
 					<img src="images/usc-logo.png" alt="usc logo">
 					<div class="twelve columns" id="identification">
-						<form action="admin-home.php" method="">
+						<form action="admin.php" method="POST">
 							<label for="username">Username</label>
 							<input type="text" name="username">
 							<label for="password">Password</label>
@@ -69,6 +85,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- External Javascript -->
 	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/client-side-validation.js"></script>
 
 </body>
 </html>
