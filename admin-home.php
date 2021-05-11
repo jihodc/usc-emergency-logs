@@ -1,3 +1,9 @@
+<?php 
+	require "config/config.php";
+	$currentPage = "admin-home";
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,19 +35,8 @@
 </head>	
 <body>
 	<div class="content">
-		<!-- Top Naviagation Bar -->
-		<div class="top-nav">
-			<!-- Hamburger Menu Icon -->
-			<a class="menu-icon"><i class="fas fa-bars"></i></a>
-			<!-- Navigation Links -->
-			<div id="nav-links">
-				<a href="search.php">Search</a>
-				<a href="resource.php">Resources</a>
-				<a href="about.php">About</a>
-				<a href="admin.php"><i class="fas fa-lock"></i></a>
-			</div>
-			<a href="#" id="logo">USC Emergency Logs</a>
-		</div>
+		<!-- Import Navigation Bar -->
+		<?php include 'config/navbar.php'; ?>
 		<!-- Button Sections -->
 		<div class="container">
 			<div class="row">

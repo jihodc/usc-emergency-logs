@@ -1,3 +1,78 @@
+<?php 
+	require 'config/config.php';
+	$currentPage = "result";
+
+	// Connect to DB
+	require 'config/conn.php';
+
+	// var_dump($_GET);
+	$sql = "SELECT reports.report_title AS title, reports.report_time AS report_time, reports.event_start AS event_start, event_end AS event_end, reports.location AS location, reports.event_summary AS summary, reports.report_number AS report_number, despositions.status AS status, incidents.type AS type
+	FROM reports
+	LEFT JOIN incidents
+		ON reports.Incidents_id = incidents.id
+	LEFT JOIN despositions
+		ON reports.Despositions_id = despositions.id
+	WHERE 1 = 1";
+
+	// FOR SEARCH RESULT FORMS
+	$desposition = $conn->prepare("SELECT * FROM despositions");
+	$execute = $desposition->execute();
+	if(!$execute) {
+		echo $conn->error;
+		exit();
+	}
+
+	// Save result returned from 
+	$desposition_result = $desposition->get_result();
+
+
+	// FOR INCIDENT
+	$incident = $conn->prepare("SELECT * FROM incidents");
+	$execute = $incident->execute();
+	if(!$execute) {
+		echo $conn->error;
+		exit();
+	}
+
+	// Save result returned from 
+	$incident_result = $incident->get_result();
+
+	// $_GET check
+	if(isset($_GET["log-search"]) && !empty($_GET["log-search"])) {
+		$sql = $sql . " AND reports.report_title LIKE '%" . $_GET["log-search"] . "%'";
+	}
+
+	if(isset($_GET["incidents"]) && !empty($_GET["incidents"])) {
+		$sql = $sql . " AND reports.Incidents_id = " . $_GET["incidents"]; 
+	}
+
+	if(isset($_GET["date-start"]) && !empty($_GET["date-start"]) && isset($_GET["date-end"]) && !empty($_GET["date-end"])) {
+		$sql = $sql . " AND report_time BETWEEN '" . $_GET["date-start"] . " 00:00:00' AND '" . $_GET["date-end"] . " 23:59:59'";
+	}
+	// $_GET from RESULTS
+	if(isset($_GET["desposition"]) && !empty($_GET["desposition"])) {
+		$sql = $sql . " AND reports.Despositions_id = " . $_GET["desposition"];
+	}
+	if(isset($_GET["order"]) && !empty($_GET["order"])) {
+		$sql = $sql . " ORDER BY report_time " . $_GET["order"] . ";";
+	} else {
+		$sql = $sql . " ORDER BY report_time DESC;";
+	}
+
+	// echo $sql;
+
+	// submit the query
+	$results = $conn->query($sql);
+	if (!$results) {
+		echo $conn->error;
+		exit();
+	}
+
+	// var_dump($results->fetch_assoc());
+
+	$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -36,7 +111,7 @@
 		</div>
 		<!-- Search Section -->
 		<div class="container search">
-			<form action="result.php" method="GET">
+			<form action="result.php" method="GET" id="search-log">
 				<div class="row">
 					<div class="twelve columns">
 						<input type="text" name="log-search" placeholder="Type something"/><input type="submit" value="Search"/>
@@ -52,7 +127,15 @@
 						<div class="twelve columns">
 							<label>Incident Type:</label>
 							<select name="incidents">
-								<option value="select" selected>Select</option>
+								<option value="" selected>Select</option>
+								<!-- PRINT OUT INCIDENT TYPES FROM DB -->
+								<?php if ($incident_result->num_rows > 0); ?>
+								<?php while($row = $incident_result->fetch_assoc()) : ?>
+									<option value="<?php echo $row['id']; ?>">
+										<?php echo $row['type']; ?>
+									</option>
+								<?php endwhile; ?>
+								<?php $incident->close(); ?>
 							</select>
 						</div>
 					</div>
@@ -70,72 +153,66 @@
 			</form>
 		</div>
 		<div class="container result">
-			<div class="row" id="display">
-				<div class="eight columns" id="display-option">
-					<label>Order by: </label>
-					<select name="order">
-						<option>Newest</option>
-						<option>Oldest</option>
-					</select>
-					<label>Disposition: </label>
-					<select name="disposition">
-						<option>All</option>
-						<option>Open</option>
-						<option>Pending</option>
-						<option>Closed</option>
-					</select>
+			<form action="result.php" method="GET">
+				<div class="row" id="display">
+					<div class="ten columns" id="display-option">
+						<label>Order by: </label>
+						<select name="order" form="search-log">
+							<option value="DESC" se>Newest</option>
+							<option value="ASC">Oldest</option>
+						</select>
+						<label>Disposition: </label>
+						<select name="desposition" form="search-log">
+							<option value="" selected>All</option>
+							<!-- PRINT OUT DESPOSITION TYPES FROM DB -->
+							<?php if ($desposition_result->num_rows > 0); ?>
+							<?php while($row = $desposition_result->fetch_assoc()) : ?>
+								<option value="<?php echo $row['id']; ?>">
+									<?php echo $row['status']; ?>
+								</option>
+							<?php endwhile; ?>
+							<?php $desposition->close(); ?>
+						</select>
+					</div>
+					<!-- <div class="four columns" id="stack-map">
+						<i class="fas fa-layer-group selected" id="stack"></i>
+						<i class="fas fa-map-marker-alt"id="map"></i>
+					</div> -->
 				</div>
-				<div class="four columns" id="stack-map">
-					<i class="fas fa-layer-group selected" id="stack"></i>
-					<i class="fas fa-map-marker-alt"id="map"></i>
+			</form>
+			<div class="row">
+				<div class="twelve column">
+					<span>Showing <?php echo $results->num_rows;?> result(s).
 				</div>
 			</div>
 		</div>
 		<!-- Stack Display -->
 		<div id="outcome-stack">
-			<div class="container result-card">
-				<div class="row">
-					<div class="one-half column">
-						<h6>Incident Case</h6>
-						<p><i class="fas fa-map-marker-alt"></i>Location Information</p>
-						<p>Reported: 1/25/21 10:46 am</p>
+			<!-- DISPLAY RESULTS -->
+			<? while($row = $results->fetch_assoc()) :?>
+				<div class="container result-card">
+					<div class="row">
+						<div class="one-half column">
+							<h6><?php echo $row['title'] ?></h6>
+							<p><i class="fas fa-map-marker-alt"></i><?php echo $row['location'] ?></p>
+							<p>Reported: <?php echo $row['report_time'] ?></p>
+						</div>
+						<div class="one-half column">
+							<h6>Report #<?php echo $row['report_number'] ?></h6>
+							<p>Disposition: <?php echo $row['status'] ?></p>
+							<h6>Click for Details</h6>
+						</div>
 					</div>
-					<div class="one-half column">
-						<h6>Report #123456</h6>
-						<p>Disposition: Open</p>
-						<h6>Click for Details</h6>
-					</div>
-				</div>
-				<div class="row">
-					<div class="twelve columns details">
-						<p>Occurred: 1/23/21 9:45 am to 1/23/21 11:33 am</p>
-						 <p>This is where the summary of the incident is displayed</p>
-					</div>
-				</div>
-			</div>
-			<div class="container result-card">
-				<div class="row">
-					<div class="one-half column">
-						<h6>Incident Case</h6>
-						<p><i class="fas fa-map-marker-alt"></i>Location Information</p>
-						<p>Reported: 1/25/21 10:46 am</p>
-					</div>
-					<div class="one-half column">
-						<h6>Report #123456</h6>
-						<p>Disposition: Open</p>
-						<h6>Click for Details</h6>
+					<div class="row">
+						<div class="twelve columns details">
+							<p>Occurred: <?php echo $row['event_start'] ?> to <?php echo $row['event_end'] ?></p>
+							<p><?php echo $row['summary'] ?></p>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="twelve columns details">
-						<p>Occurred: 1/23/21 9:45 am to 1/23/21 11:33 am</p>
-						 <p>This is where the summary of the incident is displayed</p>
-					</div>
-				</div>
-			</div>
-		</div>
+			<?php endwhile;?>
 		<!-- Map Display -->
-		<div id="outcome-map" class="hide">
+		<!-- <div id="outcome-map" class="hide">
 			<div class="container" id="map-section">
 				<div class="twelve columns">
 					<p>Map</p>
@@ -160,7 +237,7 @@
 						 <p>This is where the summary of the incident is displayed</p>
 					</div>
 				</div>
-		</div>
+		</div> -->
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>

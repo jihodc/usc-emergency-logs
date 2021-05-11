@@ -7,45 +7,57 @@
 	// Check if user is already logged in
 	if (!isset($_SESSION["logged_in"]) || !$_SESSION["logged_in"]) {
 		// Check if username and password has been submitted via POST
-		if(isset($_POST['username']) && isset($_POST['password'])) {
+		if(isset($_POST["username"]) && isset($_POST["password"])) {
 			// Check if username and password exists
-			if(empty($_POST['username']) || empty($_POST['password'])) {
+			if(empty($_POST["username"]) || empty($_POST["password"])) {
 				$error = "Please enter username and password";
 			} else {
-				// Knowning that username and password exists, compare it to the ones that exist in DB
+				// Knowing that username and password exists, compare it to the ones that exist in DB
+				$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 				if($conn->connect_errno) {
 					echo $conn->connect_error;
 					exit();
 				}
 				// Hashed password
-				$passwordInput = hash("sha256", $_POST['password']);
-				$usernameInput = $_POST['username'];
+				$passwordInput = hash("sha256", $_POST["password"]);
+				$usernameInput = $_POST["username"];
 
 				// Prepared statement
-				$statement = $conn->prepare("SELECT * FROM accounts WHERE username= ? AND password= ? ");
+				$statement = $conn->prepare("SELECT * FROM accounts WHERE username= ? AND password= ?");
 				$statement->bind_param("ss", $usernameInput, $passwordInput);
-				$execute = $statement->exectute();
+				$execute = $statement->execute();
 				if(!$execute) {
 					echo $conn->error;
 					exit();
 				}
 
-				// If you get at lease one result, it means the account exists in database
-				if($execute->num_rows > 0) {
+				// Stored the returned value from DB
+				$statement->store_result();
+				
+				// If you get at least one result, it means the account exists in database
+				if($statement->num_rows > 0) {
+					// log in success!
+					// set session variables to remember the username
 					$_SESSION["username"] = $_POST["username"];
 					$_SESSION["logged_in"] = true;
 
-					// Redirect logged in user to the homepage
+					// Redirect logged in user to the admin homepage
 					header("Location: admin-home.php");
 				} else {
 					$error = "Invalid username or password";
 				}
 
-
 			}
+			$statement->close();
+			$conn->close();
 		}
 
-	} 
+	} else {
+		// Already logged in user will be redireced to another page
+		header("Location: admin-home.php");
+	}
+	
+	
 ?>
 
 <!DOCTYPE html>

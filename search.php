@@ -1,6 +1,24 @@
 <?php 
 	require 'config/config.php';
 	$currentPage = "search";
+
+	// Connect to DB
+	require 'config/conn.php';
+
+	$statement = $conn->prepare("SELECT * FROM incidents");
+	$execute = $statement->execute();
+	if(!$execute) {
+		echo $conn->error;
+		exit();
+	}
+
+	// Save result returned from 
+	$result = $statement->get_result();
+
+	// var_dump($result->num_rows);
+
+	$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +74,15 @@
 						<div class="twelve columns">
 							<label>Incident Type:</label>
 							<select name="incidents">
-								<option value="select" selected>Select</option>
+								<option value="" selected>SELECT</option>
+								<!-- PRINT OUT INCIDENT TYPES FROM DB -->
+								<?php if ($result->num_rows > 0); ?>
+								<?php while($row = $result->fetch_assoc()) : ?>
+									<option value="<?php echo $row['id']; ?>">
+										<?php echo $row['type']; ?>
+									</option>
+								<?php endwhile; ?>
+								<?php $statement->close(); ?>
 							</select>
 						</div>
 					</div>
@@ -70,25 +96,38 @@
 							<input type="date" name="date-end" min="2021-01-01" max="2021-12-12">
 						</div>
 					</div>
+					<!-- Hide only to pass it around -->
+					<div class="hide">
+						<label>Order:</label>
+						<select name="order">
+							<option value="" selected>SELECT</option>
+						</select>
+						<label>
+						<label>Desposition:</label>
+						<select name="disposition">
+							<option value="" selected>SELECT</option>
+						</select>
+						<label>
+					</div>
 				</div>
 			</form>
 		</div>
 		<!-- Frequently Searched Keywords -->
 		<div class="container">
-			<div id="keywords"><h5>Frequently Searched Keywords</h5>
-				<div class="row">
-					<div class="one-third column tag">Grand Theft Auto</div>
-					<div class="one-third column tag">Burglary</div>
-					<div class="one-third column tag">Assault and Battery</div>
+			<div id="keywords"><h5>Frequently Occuring Incidents</h5>
+				<div class="row" id="frequent-incidents">
+					<div class="one-third column tag">Test</div>
+					<div class="one-third column tag">Test</div>
+					<div class="one-third column tag">Test</div>
 				</div>
 			</div>
 		</div>
 		<!-- Most Recent Reports -->
 		<div class="container" id="report">
 			<div id="recent"><h6>Most Recent Reports</h6></div>
-			<div class="row">
+			<div class="row" id="recent-incidents">
 				<div class="card three columns">
-					<p class="card-map">Map</p>
+					<p class="card-map">10/1/2020</p>
 					<h4 class="card-title">Sexual Misconduct</h4>
 					<p class="card-caption"><i class="fas fa-map-marker-alt"></i> Location</p>
 				</div>
@@ -104,7 +143,7 @@
 			<h6>Last Month Summary</h6>
 			<p>There has been <span class="trojan">250</span> reports made around the campus vicinity last month.</p>
 			<div class="row">
-				<div class="twelve columns"></div>
+				<div class="twelve columns"><canvas id="myChart" width="100%" height="50%"></canvas></div>
 			</div>
 		</div>
 		<!-- Footer -->
@@ -116,5 +155,83 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- External Javascript -->
 	<script type="text/javascript" src="js/search.js"></script>
+	<!-- External JS for DB AJAX -->
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<!-- External JS chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3/dist/chart.min.js"></script>
+	<script type="text/javascript" src="js/myChart.js"></script>
+	<!-- Fill the frequently occuring incidents with DB data -->
+	<script>
+		// FOR FREQUENTLY SEARCHED INCIDENTS
+		ajaxGet("ajax/search-frequent.php", function(results) {
+			// console.log(results);
+			let jsResults = JSON.parse(results)
+			// console.log(jsResults);
+			let resultList = document.querySelector("#frequent-incidents");
+
+			// Clear all previous elements
+			while(resultList.hasChildNodes()) {
+				resultList.removeChild(resultList.lastChild);
+			}
+
+			for(let i = 0; i < jsResults.length; i++) {
+				let div = document.createElement("div");
+				div.classList.add("one-third");
+				div.classList.add("column");
+				div.classList.add("tag");
+				div.setAttribute("data-id", jsResults[i].Incidents_id);
+				div.innerHTML = jsResults[i].type;
+				resultList.appendChild(div);
+			}
+		})
+
+		// FOR RECENTLY OCCURED INCIDENTS
+		ajaxGet("ajax/search-recent.php", function(results) {
+			// console.log(results);
+			let jsResults = JSON.parse(results)
+			// console.log(jsResults);
+			let resultList = document.querySelector("#recent-incidents");
+
+			// Clear all previous elements
+			while(resultList.hasChildNodes()) {
+				resultList.removeChild(resultList.lastChild);
+			}
+
+			for(let i = 0; i < jsResults.length; i++) {
+				let div = document.createElement("div");
+				div.classList.add("card", "three", "columns");
+				let p = document.createElement("p");
+				p.classList.add("card-map");
+				p.innerHTML = jsResults[i].report_time;
+				let h4 = document.createElement("h4");
+				h4.classList.add("card-title");
+				h4.innerHTML = jsResults[i].report_title;
+				let p2 = document.createElement("p");
+				p2.classList.add("card-caption");
+				p2.innerHTML = "<i class='fas fa-map-marker-alt'></i> " + jsResults[i].location;
+
+				div.appendChild(p);
+				div.appendChild(h4);
+				div.appendChild(p2);
+
+				resultList.appendChild(div);
+			}
+		})
+
+		// FOR MONTHLY SUMMARY
+		ajaxGet("ajax/search-summary.php", function(results) {
+			// console.log(results);
+			let jsResults = JSON.parse(results)
+			// console.log(jsResults);
+			let resultList = document.querySelector(".trojan");
+
+			// Clear all previous elements
+			while(resultList.hasChildNodes()) {
+				resultList.removeChild(resultList.lastChild);
+			}
+
+			resultList.innerHTML = jsResults[0].total;
+		})
+	</script>
 </body>
 </html>

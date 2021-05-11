@@ -1,4 +1,5 @@
 <?php 
+	require "config/config.php";
 	$currentPage = "resources";
 ?>
 
@@ -40,9 +41,9 @@
 			<div class="row">
 				<div class="twelve columns top-gap">
 					<h3>Resources</h3>
-					<form action="" method="GET">
+					<!-- <form action="" method="GET">
 						<input type="text" name="log-search" placeholder="Type something"/><input type="submit" value="Search"/>
-					</form>
+					</form> -->
 
 				</div>
 			</div>
@@ -51,41 +52,13 @@
 		<div class="container bottom-gap">
 			<div class="row">
 				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
+					<h4 class="card-title"><a href="https://dps.usc.edu/services/safety-app/" target="_blank">LiveSafe Mobile Safety App</a></h4>
+					<p class="card-caption">LiveSafe, managed by the USC Department of Public Safety and the USC Department of Emergency Planning, is a free downloadable app that mobile users can use to initiate contact with emergency responders around the University Park and Health Science campuses.
 					</p>
 				</div>
 				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
-					</p>
-				</div>
-				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
-					</p>
-				</div>
-				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
-					</p>
-				</div>
-				<div class="four columns card resource">
-					<h4 class="card-title">Trojan Safety</h4>
-					<p class="card-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus. Tempus tincidunt suspendisse sem nulla massa, at laoreet purus.<br/>
-					<a href="#" target="_blank">Link</a>
+					<h4 class="card-title"><a href="https://dps.usc.edu/services/trojans-alerts/" target="_blank">TrojansAlert</a></h4>
+					<p class="card-caption">TrojansAlert is an emergency notification system that allows university officials to contact you during an emergency by sending messages via text message and email. When an emergency occurs, authorized USC senders will instantly notify you with real-time updates, instructions on where to go, what to do (or what not to do), whom to contact and other important information.
 					</p>
 				</div>
 			</div>

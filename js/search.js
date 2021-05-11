@@ -9,8 +9,14 @@ $("#filter h6").click(function() {
 });
 
 // Keyword click
-$(".tag").click(function() {
-	$("input[name='log-search']").val($(this).html());
+// Event Delegation
+$("#frequent-incidents").on("click", "div", function(event) {
+	if($("#detail").css("display") == "none") {
+		$("#detail").slideToggle("100");
+	}
+	// $("input[name='log-search']").val($(this).html().toLowerCase());
+	$("select").val($(this).data("id"));
+
 });
 
 // Toggle stack-map display
@@ -25,4 +31,16 @@ $("#stack-map").click(function() {
 // Toggle the details of the result panel
 $(".result-card").click(function() {
 	$(".details", this).slideToggle("100");
+})
+
+// Date checker
+$("form").submit(function(event) {
+	if($("input[name='date-start']").val() > $("input[name='date-end']").val()) {
+		alert("From date must be earlier than to date. Please enter the date again");
+		// stop from being submitted
+		event.preventDefault();
+		// Empty out the values
+		$("input[name='date-start']").val("");
+		$("input[name='date-end']").val("");
+	}
 })
