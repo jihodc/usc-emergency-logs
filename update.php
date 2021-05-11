@@ -6,7 +6,7 @@
 	require 'config/conn.php';
 
 	// var_dump($_GET);
-	$sql = "SELECT reports.report_title AS title, reports.report_time AS report_time, reports.event_start AS event_start, event_end AS event_end, reports.location AS location, reports.event_summary AS summary, reports.report_number AS report_number, despositions.status AS status, incidents.type AS type
+	$sql = "SELECT reports.id AS id, reports.report_title AS title, reports.report_time AS report_time, reports.event_start AS event_start, event_end AS event_end, reports.location AS location, reports.event_summary AS summary, reports.report_number AS report_number, despositions.status AS status, incidents.type AS type
 	FROM reports
 	LEFT JOIN incidents
 		ON reports.Incidents_id = incidents.id
@@ -111,7 +111,7 @@
 		</div>
 		<!-- Search Section -->
 		<div class="container search">
-			<form action="result.php" method="GET" id="search-log">
+			<form action="update.php" method="GET" id="search-log">
 				<div class="row">
 					<div class="twelve columns">
 						<input type="text" name="log-search" placeholder="Type something"/><input type="submit" value="Search"/>
@@ -209,6 +209,8 @@
 						<div class="twelve columns details">
 							<p>Occurred: <?php echo $row['event_start'] ?> to <?php echo $row['event_end'] ?></p>
 							<p><?php echo $row['summary'] ?></p>
+							<a class="confirm" href="update-detail.php?id=<?php echo $row['id'];?>"><button>Edit</button></a>
+							<a class="muted" onclick="return confirm('Are you sure you want to delete this Incident?');" href="delete-confirmation.php?id=<?php echo $row['id']; ?>&title=<?php echo $row['title']?>"><button>Delete</button></a>
 						</div>
 					</div>
 				</div>

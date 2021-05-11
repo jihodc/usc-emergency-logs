@@ -76,12 +76,13 @@
 							<select name="incidents">
 								<option value="" selected>SELECT</option>
 								<!-- PRINT OUT INCIDENT TYPES FROM DB -->
-								<?php if ($result->num_rows > 0); ?>
-								<?php while($row = $result->fetch_assoc()) : ?>
-									<option value="<?php echo $row['id']; ?>">
-										<?php echo $row['type']; ?>
-									</option>
-								<?php endwhile; ?>
+								<?php if ($result->num_rows > 0): ?>
+									<?php while($row = $result->fetch_assoc()) : ?>
+										<option value="<?php echo $row['id']; ?>">
+											<?php echo $row['type']; ?>
+										</option>
+									<?php endwhile; ?>
+								<?php endif;?>
 								<?php $statement->close(); ?>
 							</select>
 						</div>

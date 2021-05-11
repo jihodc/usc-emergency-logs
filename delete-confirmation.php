@@ -1,6 +1,31 @@
 <?php 
 	require "config/config.php";
-	$currentPage = "admin-home";
+    $currentPage = "delete-confirm";
+
+	$isDeleted = false;
+
+	if (!isset($_GET["id"]) || empty($_GET["id"]) || !isset($_GET["title"]) || empty($_GET["title"])) {
+		$error = "No matching data found";
+	}
+	else {
+		require 'config/conn.php';
+
+		// Generate the SQL statement
+		$sql = "DELETE FROM reports WHERE id = ". $_GET["id"] . ";";
+
+		$results = $conn->query($sql);
+		if (!$results) {
+			echo $conn->error;
+			exit();
+		}
+
+		if($conn->affected_rows == 1) {
+			$isDeleted = true;
+		}
+
+		$conn->close();
+
+	}
 
 ?>
 
@@ -32,36 +57,41 @@
   	<!-- Favicon -->
   	 <link rel="icon" type="image/png" href="images/app-favicon.png">
 
-</head>	
+</head>
 <body>
-	<div class="content">
+    <div class="content">
 		<!-- Import Navigation Bar -->
 		<?php include 'config/navbar.php'; ?>
-		<!-- Button Sections -->
+		<!-- Body -->
 		<div class="container">
-			<div class="row">
-				<div class="twelve columns top-gap panel">
-					<h5>Add Data</h5>
-					<p>Add new data to the current database.</p>
-					<a href="add.php"><button>Add Data</button></a>
+    		<div class="row">
+				<div class="eight columns top-gap">
+                    <h3>Confirmation</h3>
+                    <p>
+                    <?php if(isset($error) && !empty($error)) :?>
+                        <span class="bad"><?php echo $error; ?></span>
+                    <?php endif;?>
+                    <?php if ($isDeleted) : ?>
+						<span class="good"><?php echo $_POST["title"]; ?> was successfully deleted.</span>
+				    <?php endif;?>
+                    </p>
 				</div>
-				<div class="twelve columns panel">
-					<h5>Update Data</h5>
-					<p>Update or delete current database.</p>
-					<a href="update.php"><button>Update/Delete Data</button></a>
-				</div>
-			</div>
-		</div>
-		
+    		</div>
+            <div class="row confirm">
+                <div class="one-half columns">
+                    <a href="update.php"><button>Back to Update Data</button></a>
+                </div>
+            </div>
+  		</div>
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>
 		</footer> -->
 	</div>
-
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- External Javascript -->
 	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/client-side-validation.js"></script>
 </body>
 </html>

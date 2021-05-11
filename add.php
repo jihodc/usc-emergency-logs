@@ -77,12 +77,13 @@
 						<select name="incident" required>
 							<option value="" selected>----</option>
 							<!-- PRINT OUT INCIDENT TYPES FROM DB -->
-							<?php if ($incident_result->num_rows > 0); ?>
-							<?php while($row = $incident_result->fetch_assoc()) : ?>
-								<option value="<?php echo $row['id']; ?>">
-									<?php echo $row['type']; ?>
-								</option>
-							<?php endwhile; ?>
+							<?php if ($incident_result->num_rows > 0): ?>
+								<?php while($row = $incident_result->fetch_assoc()) : ?>
+									<option value="<?php echo $row['id']; ?>">
+										<?php echo $row['type']; ?>
+									</option>
+								<?php endwhile; ?>
+							<?php endif; ?>
 							<?php $incident->close(); ?>
 						</select>
 						<label for="title" >Title<span class="trojan">*</span></label>
@@ -96,12 +97,13 @@
 						<label for="desposition">Disposition<span class="trojan">*</span></label>
 						<select name="desposition" required>
 							<!-- PRINT OUT DESPOSITION TYPES FROM DB -->
-							<?php if ($desposition_result->num_rows > 0); ?>
+							<?php if ($desposition_result->num_rows > 0): ?>
 							<?php while($row = $desposition_result->fetch_assoc()) : ?>
 								<option value="<?php echo $row['id']; ?>">
 									<?php echo $row['status']; ?>
 								</option>
 							<?php endwhile; ?>
+							<?php endif; ?>
 							<?php $desposition->close(); ?>
 						</select>
 						<label for="location">Location<span class="trojan">*</span></label>

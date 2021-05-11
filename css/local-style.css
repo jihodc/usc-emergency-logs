@@ -381,6 +381,10 @@ input[type="date"] {
 	color: red;
 }
 
+.good {
+	color: green;
+}
+
 /* ----------ADMIN HOME PAGE---------- */
 .panel {
 	background-color: #eee;
@@ -389,7 +393,7 @@ input[type="date"] {
 	border-radius: 10px;
 }
 
-.panel button {
+.panel button, .confirm button {
 	background-color: #990000;
 	border: none;
 	color: white;
@@ -397,9 +401,24 @@ input[type="date"] {
 	transition: 0.3s;
 }
 
-.panel button:hover {
+.panel button:hover, .confirm button:hover {
 	background-color: #ffcc00;
 	color: #990000;
+	
+	transition: 0.3s;
+}
+
+.muted button {
+	background-color: #ffcc00;
+	border: none;
+	color: #990000;
+
+	transition: 0.3s;
+}
+
+.muted button:hover {
+	background-color: #990000;
+	color: #ffcc00;
 	
 	transition: 0.3s;
 }

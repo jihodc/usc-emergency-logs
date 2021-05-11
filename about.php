@@ -39,12 +39,12 @@
 		<!-- Body -->
 		<div class="container">
     		<div class="row">
-      		<div class="eight columns top-gap">
-        	<h3>What is USC Emergency Logs?</h3>
-        	<p>USC Emergency Logs was made to improve the display and access experience of the <a href="https://dps.usc.edu/alerts/log/" target="_blank">Daily Crime & Fire Logs</a> that contain verified information of emergency incidents happening around the USC campus vicinity.</p>
-      	</div>
-    </div>
-  </div>
+				<div class="eight columns top-gap">
+					<h3>What is USC Emergency Logs?</h3>
+					<p>USC Emergency Logs was made to improve the display and access experience of the <a href="https://dps.usc.edu/alerts/log/" target="_blank">Daily Crime & Fire Logs</a> that contain verified information of emergency incidents happening around the USC campus vicinity.</p>
+				</div>
+    		</div>
+  		</div>
 		<!-- Footer -->
 		<!-- <footer>
 			<p>Coded by Jiho Lee</p>
